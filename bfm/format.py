@@ -1,4 +1,4 @@
-import time
+from argparse import ArgumentParser
 
 selected_keys = {
     "@article": ["author", "title", "journal", "volume", "number", "pages", "year"],
@@ -87,7 +87,7 @@ def read_bibtex(in_file: str):
     with open(in_file, 'r') as f:
         lines = f.readlines()
 
-    # add all bibtex entries to a dict with key=ref_name
+    # add all bibtex entries to a dict with key=cite_name
     bibs = dict()
     previous_line = ""
     for line in lines:
@@ -101,9 +101,9 @@ def read_bibtex(in_file: str):
         # find a new entry
         if line.startswith("@"):
             assert previous_line == ""
-            ref_type, ref_name = line.split("{")
-            entry = {"ref_type": ref_type.replace(',', '').strip()}
-            bibs[ref_name.replace(',', '').strip()] = entry
+            cite_type, cite_name = line.split("{")
+            entry = {"cite_type": cite_type.replace(',', '').strip()}
+            bibs[cite_name.replace(',', '').strip()] = entry
             continue
         else:
             # inside an entry
@@ -121,10 +121,10 @@ def read_bibtex(in_file: str):
 
 def write_bibtex(bibs, out_file: str):
     with open(out_file, 'w') as f:
-        for ref_name, bib in bibs.items():
-            f.write(f"{bib.get('ref_type')}{{{ref_name},\n")
+        for cite_name, bib in bibs.items():
+            f.write(f"{bib.get('cite_type')}{{{cite_name},\n")
             for key in bib:
-                if key in ["ref_type", "ref_name"]:
+                if key in ["cite_type", "cite_name"]:
                     continue
                 f.write(f"\t{key} = {{{bib[key]}}}")
                 if key == list(bib.keys())[-1]:
@@ -137,7 +137,7 @@ def write_bibtex(bibs, out_file: str):
 def select_keys(bibs: list):
     for bib in bibs.values():
         for key in list(bib.keys()):
-            if key not in ["ref_type"] + selected_keys[bib["ref_type"]]:
+            if key not in ["cite_type"] + selected_keys[bib["cite_type"]]:
                 del bib[key]
 
     return bibs
@@ -151,28 +151,28 @@ def online_check(bibs, log_file):
 def remove_duplicates(bibs, log_file):
     duplicates = dict()
     for i in range(len(bibs)-1):
-        ref_name = list(bibs.keys())[i]
-        bib = bibs[ref_name]
+        cite_name = list(bibs.keys())[i]
+        bib = bibs[cite_name]
 
         # skip entries already in duplicates
-        if any(ref_name in duplicates[dup] for dup in duplicates):
+        if any(cite_name in duplicates[dup] for dup in duplicates):
             continue
 
-        dup = {ref_name: []}
+        dup = {cite_name: []}
         for j in range(i+1, len(bibs)):
-            another_ref_name = list(bibs.keys())[j]
-            another_bib = bibs[another_ref_name]
+            another_cite_name = list(bibs.keys())[j]
+            another_bib = bibs[another_cite_name]
             if bib['title'] == another_bib['title']:
-                dup[ref_name].append(another_ref_name)
-        if dup[ref_name]:
+                dup[cite_name].append(another_cite_name)
+        if dup[cite_name]:
             duplicates.update(dup)
 
     # actually delete entries
     remove_names = []
     for dup in duplicates.values():
         remove_names.extend(dup)
-    for ref_name in remove_names:
-        del bibs[ref_name]
+    for cite_name in remove_names:
+        del bibs[cite_name]
 
     # log the event
     with open(log_file, 'w+') as f:
@@ -188,15 +188,15 @@ def standard_conference_name(bibs):
             string = string.replace(char, char_out)
         return string
 
-    for ref_name, bib in bibs.items():
-        if bib['ref_type'] == '@inproceedings':
+    for cite_name, bib in bibs.items():
+        if bib['cite_type'] == '@inproceedings':
             key_to_modify = 'booktitle'
-        elif bib['ref_type'] == '@article':
+        elif bib['cite_type'] == '@article':
             key_to_modify = 'journal'
         else:
             continue
 
-        # ! 从长到短匹配，防止短串匹配到长串的错误
+        # ! from long to short
         for brief in sorted(brief_to_full.keys(), key=lambda x: -len(x)):
             if key_to_modify in bib and brief.lower() in replace_all(bib[key_to_modify], "{}", '').lower():
                 bib[key_to_modify] = brief_to_full[brief]
@@ -205,7 +205,7 @@ def standard_conference_name(bibs):
     return bibs
 
 
-def reformat(in_file, out_file, log_file='logs.txt'):
+def format_bibtex(in_file, out_file, log_file='logs.txt'):
     bibs = read_bibtex(in_file)
     bibs = online_check(bibs, log_file)
     bibs = select_keys(bibs)
@@ -215,5 +215,12 @@ def reformat(in_file, out_file, log_file='logs.txt'):
     write_bibtex(bibs, out_file)
 
 
-if __name__ == "__main__":
-    reformat('in.bib', 'out.bib', f'{time.ctime()}.log')
+def main():
+    parser = ArgumentParser()
+    parser.add_argument('-i', '--input', type=str, help="input .bib filename", default='in.bib')
+    parser.add_argument('-o', '--output', type=str, help="output .bib filename", default='out.bib')
+    parser.add_argument('-l', '--log', type=str, help="output log filename", default='logs.txt')
+
+    args = parser.parse_args()
+
+    format_bibtex(args.input, args.output, args.log)
