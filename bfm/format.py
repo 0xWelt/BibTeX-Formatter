@@ -1,66 +1,68 @@
+import itertools
 from argparse import ArgumentParser
 
-selected_keys = {
+SELECTED_KEYS = {
     "@article": ["author", "title", "journal", "volume", "number", "pages", "year"],
     "@book": ["author", "title", "publisher", "year"],
     "@inproceedings": ["author", "title", "booktitle", "pages", "year"],
 }
-brief_to_full = {
-    "AAAI Conference on Artificial Intelligence": "AAAI Conference on Artificial Intelligence (AAAI)",
-    "AIAA Infotech@Aerospace Conference": "AIAA Infotech@Aerospace Conference",
-    "AIAA Journal on Guidance, Control, and Dynamics": "AIAA Journal on Guidance, Control, and Dynamics",
-    "Allerton Conference on Communication": "Allerton Conference on Communication, Control, and Compution",
-    "American Control Conference": "American Control Conference (ACC)",
-    "Artificial Intelligence": "Artificial Intelligence",
-    "Autonomous Agents and Multiagent Systems": "International Conference on Autonomous Agents and Multiagent Systems (AAMAS)",
-    "Aviation Technology, Integration, and Operations": "AIAA Aviation Technology, Integration, and Operations Conference (ATIO)",
-    "Communications of the ACM": "Communications of the ACM",
-    "Computer Vision and Pattern Recognition": "IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR)",
-    "Conference on Decision and Control": "IEEE Conference on Decision and Control (CDC)",
-    "Digital Avionics Systems Conference": "Digital Avionics Systems Conference (DASC)",
-    "European Conference on Machine Learning": "European Conference on Machine Learning (ECML)",
-    "Guidance, Navigation, and Control": "AIAA Guidance, Navigation, and Control Conference (GNC)",
-    "IEEE Aerospace Conference": "IEEE Aerospace Conference",
-    "IEEE Control Systems Magazine": "IEEE Control Systems Magazine",
-    "IEEE Transactions on Aerospace and Electronic Systems": "IEEE Transactions on Aerospace and Electronic Systems",
-    "IEEE Transactions on Automatic Control": "IEEE Transactions on Automatic Control",
-    "IEEE Transactions on Computational Intelligence and AI in Games": "IEEE Transactions on Computational Intelligence and AI in Games",
-    "IEEE Transactions on Control Systems Technology": "IEEE Transactions on Control Systems Technology",
-    "IEEE Transactions on Signal Processing": "IEEE Transactions on Signal Processing",
-    "Intelligent Robots and Systems": "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)",
-    "Intelligent Transportation Systems": "IEEE Intelligent Transportation Systems Conference (ITSC)",
-    "International Conference on Acoustics, Speech, and Signal Processing": "International Conference on Acoustics, Speech, and Signal Processing (ICASSP)",
-    "International Conference on Agents and Artificial Intelligence": "International Conference on Agents and Artificial Intelligence (ICAART)",
-    "International Conference on Automated Planning and Scheduling": "International Conference on Automated Planning and Scheduling (ICAPS)",
-    "International Conference on Machine Learning and Applications": "International Conference on Machine Learning and Applications (ICMLA)",
-    "International Conference on Machine Learning": "International Conference on Machine Learning (ICML)",
-    "International Conference on Robotics and Automation": "IEEE International Conference on Robotics and Automation (ICRA)",
-    "International Conference on Spoken Language Processing": "International Conference on Spoken Language Processing (ICSLP)",
-    "International Joint Conference on Artificial Intelligence": "International Joint Conference on Artificial Intelligence (IJCAI)",
-    "International Speech Communication Association": "Annual Conference of the International Speech Communication Association (INTERSPEECH)",
-    "Journal of Aerospace Computing": "Journal of Aerospace Computing, Information, and Communication",
-    "Journal of Artificial Intelligence Research": "Journal of Artificial Intelligence Research",
-    "Journal of Machine Learning Research": "Journal of Machine Learning Research",
-    "Journal of Optimization Theory and Applications": "Journal of Optimization Theory and Applications",
-    "Learning and Intelligent Optimization": "Learning and Intelligent Optimization (LION)",
-    "Massachusetts Institute of Technology, Department of Aeronautics and Astronautics": "Massachusetts Institute of Technology, Department of Aeronautics and Astronautics",
-    "Massachusetts Institute of Technology, Department of Electrical Engineering and Computer Science": "Massachusetts Institute of Technology, Department of Electrical Engineering and Computer Science",
-    "Massachusetts Institute of Technology, Department of Mechanical Engineering": "Massachusetts Institute of Technology, Department of Mechanical Engineering",
-    "Massachusetts Institute of Technology": "Massachusetts Institute of Technology",
-    "Mathematics of Operations Research": "Mathematics of Operations Research",
-    "Neural Information Processing Systems": "Advances in Neural Information Processing Systems (NeurIPS)",
-    "Operations Research": "Operations Research",
-    "Robotics: Science and Systems": "Robotics: Science and Systems (RSS)",
-    "Special Interest Group on Data Communication": "ACM Special Interest Group on Data Communication (SIGCOMM)",
-    "Stanford University, Department of Aeronautics and Astronautics": "Stanford University, Department of Aeronautics and Astronautics",
-    "Stanford University, Department of Electrical Engineering": "Stanford University, Department of Electrical Engineering",
-    "Stanford University, Department of Mechanical Engineering": "Stanford University, Department of Mechanical Engineering",
-    "Tools and Algorithms for the Construction and Analysis of Systems": "International Conference on Tools and Algorithms for the Construction and Analysis of Systems (TACAS)",
-    "Uncertainty in Artificial Intelligence": "Conference on Uncertainty in Artificial Intelligence (UAI)",
-    "International Conference on Learning Representations": "International Conference on Learning Representations (ICLR)",
-    "Empirical Methods in Natural Language Processing": "Conference on Empirical Methods in Natural Language Processing (EMNLP)",
-    "International Conference on Soft Robotics": "IEEE International Conference on Soft Robotics (RoboSoft)"
-}
+STANDARD_NAMES = [
+    "AAAI Conference on Artificial Intelligence (AAAI)",
+    "ACM Special Interest Group on Data Communication (SIGCOMM)",
+    "Advances in Neural Information Processing Systems (NeurIPS)",
+    "AIAA Aviation Technology, Integration, and Operations Conference (ATIO)",
+    "AIAA Guidance, Navigation, and Control Conference (GNC)",
+    "AIAA Infotech@Aerospace Conference",
+    "AIAA Journal on Guidance, Control, and Dynamics",
+    "Allerton Conference on Communication, Control, and Compution",
+    "American Control Conference (ACC)",
+    "Annual Conference of the International Speech Communication Association (INTERSPEECH)",
+    "Artificial Intelligence",
+    "Communications of the ACM",
+    "Conference on Empirical Methods in Natural Language Processing (EMNLP)",
+    "Conference on Uncertainty in Artificial Intelligence (UAI)",
+    "Digital Avionics Systems Conference (DASC)",
+    "European Conference on Machine Learning (ECML)",
+    "IEEE Aerospace Conference",
+    "IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "IEEE Conference on Decision and Control (CDC)",
+    "IEEE Control Systems Magazine",
+    "IEEE Intelligent Transportation Systems Conference (ITSC)",
+    "IEEE International Conference on Robotics and Automation (ICRA)",
+    "IEEE International Conference on Soft Robotics (RoboSoft)"
+    "IEEE Transactions on Aerospace and Electronic Systems",
+    "IEEE Transactions on Automatic Control",
+    "IEEE Transactions on Computational Intelligence and AI in Games",
+    "IEEE Transactions on Control Systems Technology",
+    "IEEE Transactions on Signal Processing",
+    "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)",
+    "International Conference on Acoustics, Speech, and Signal Processing (ICASSP)",
+    "International Conference on Agents and Artificial Intelligence (ICAART)",
+    "International Conference on Automated Planning and Scheduling (ICAPS)",
+    "International Conference on Autonomous Agents and Multiagent Systems (AAMAS)",
+    "International Conference on Learning Representations (ICLR)",
+    "International Conference on Machine Learning (ICML)",
+    "International Conference on Machine Learning and Applications (ICMLA)",
+    "International Conference on Spoken Language Processing (ICSLP)",
+    "International Conference on Tools and Algorithms for the Construction and Analysis of Systems (TACAS)",
+    "International Joint Conference on Artificial Intelligence (IJCAI)",
+    "Journal of Aerospace Computing, Information, and Communication",
+    "Journal of Artificial Intelligence Research",
+    "Journal of Machine Learning Research",
+    "Journal of Optimization Theory and Applications",
+    "Learning and Intelligent Optimization (LION)",
+    "Massachusetts Institute of Technology, Department of Aeronautics and Astronautics",
+    "Massachusetts Institute of Technology, Department of Electrical Engineering and Computer Science",
+    "Massachusetts Institute of Technology, Department of Mechanical Engineering",
+    "Massachusetts Institute of Technology",
+    "Mathematics of Operations Research",
+    "Operations Research",
+    "Robotics: Science and Systems (RSS)",
+    "Stanford University, Department of Aeronautics and Astronautics",
+    "Stanford University, Department of Electrical Engineering",
+    "Stanford University, Department of Mechanical Engineering",
+]
+REPLACE_THRESHOLD = 0.5  # only replace names with similarity >= threshold
 
 
 def read_bibtex(in_file: str):
@@ -137,7 +139,7 @@ def write_bibtex(bibs, out_file: str):
 def select_keys(bibs: list):
     for bib in bibs.values():
         for key in list(bib.keys()):
-            if key not in ["cite_type"] + selected_keys[bib["cite_type"]]:
+            if key not in ["cite_type"] + SELECTED_KEYS[bib["cite_type"]]:
                 del bib[key]
 
     return bibs
@@ -182,11 +184,21 @@ def remove_duplicates(bibs, log_file):
     return bibs
 
 
-def standard_conference_name(bibs):
-    def replace_all(string, chars_in, char_out):
+def standardize_names(bibs):
+    def preprocess_string(string, chars_in='(){},:', char_out=''):
         for char in chars_in:
             string = string.replace(char, char_out)
-        return string
+        return string.lower().split()
+
+    def lcs(sequence1: list, sequence2: list) -> int:
+        """ compute longest common subsequence """
+        m, n = len(sequence1), len(sequence2)
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+        for i, j in itertools.product(range(1, m + 1), range(1, n + 1)):
+            dp[i][j] = dp[i - 1][j - 1] + 1 if sequence1[i - 1] == sequence2[j - 1] else max(dp[i - 1][j], dp[i][j - 1])
+
+        return dp[m][n]
 
     for cite_name, bib in bibs.items():
         if bib['cite_type'] == '@inproceedings':
@@ -196,21 +208,27 @@ def standard_conference_name(bibs):
         else:
             continue
 
-        # ! from long to short
-        for brief in sorted(brief_to_full.keys(), key=lambda x: -len(x)):
-            if key_to_modify in bib and brief.lower() in replace_all(bib[key_to_modify], "{}", '').lower():
-                bib[key_to_modify] = brief_to_full[brief]
-                break
+        max_value, max_id = 0, -1
+        for i, std_name in enumerate(STANDARD_NAMES):
+            if key_to_modify in bib:
+                value = lcs(preprocess_string(bib[key_to_modify]), preprocess_string(std_name))
+                if value > max_value:
+                    max_value = value
+                    max_id = i
+
+        # only replace with confidence
+        if max_value >= min(len(preprocess_string(bib[key_to_modify])) * REPLACE_THRESHOLD, len(preprocess_string(STANDARD_NAMES[max_id])) * REPLACE_THRESHOLD):
+            bib[key_to_modify] = STANDARD_NAMES[max_id]
 
     return bibs
 
 
 def format_bibtex(in_file, out_file, log_file='logs.txt'):
     bibs = read_bibtex(in_file)
+    bibs = remove_duplicates(bibs, log_file)
     bibs = online_check(bibs, log_file)
     bibs = select_keys(bibs)
-    bibs = remove_duplicates(bibs, log_file)
-    bibs = standard_conference_name(bibs)
+    bibs = standardize_names(bibs)
 
     write_bibtex(bibs, out_file)
 
