@@ -1,8 +1,10 @@
 import itertools
 from argparse import ArgumentParser
+from seatable_api import Base
 
 SELECTED_KEYS = {
-    "@article": ["author", "title", "journal", "volume", "number", "pages", "year"],
+    "@article":
+    ["author", "title", "journal", "volume", "number", "pages", "year"],
     "@book": ["author", "title", "publisher", "year"],
     "@inproceedings": ["author", "title", "booktitle", "pages", "year"],
 }
@@ -66,6 +68,7 @@ REPLACE_THRESHOLD = 0.5  # only replace names with similarity >= threshold
 
 
 def read_bibtex(in_file: str):
+
     def remove_up_to(in_string, chars, times):
         count_before = {c: 0 for c in set(chars)}
         count_after = {c: 0 for c in set(chars)}
@@ -84,7 +87,7 @@ def read_bibtex(in_file: str):
         num_to_cut_before = sum(count_before.values())
         num_to_cut_after = sum(count_after.values())
 
-        return in_string[num_to_cut_before:- num_to_cut_after]
+        return in_string[num_to_cut_before:-num_to_cut_after]
 
     with open(in_file, 'r') as f:
         lines = f.readlines()
@@ -145,14 +148,35 @@ def select_keys(bibs: list):
     return bibs
 
 
-# TODO: use database to do online check
+def auth_table():
+    api_token = "8e3a52d6fcb48ab2e27e82d980d2303d759cb86e"
+    base = Base(api_token, "https://table.nju.edu.cn")
+    base.auth()
+    return base
+
+
 def online_check(bibs, log_file):
+    """
+    Check online database to search latest item
+    """
+    table = auth_table()
+    count = 0
+    for bib_key, bib_item in bibs.items():
+        bib_type = bib_item['cite_type']
+        if (bib_type in ["@article", "@inproceedings"]):
+            bib_title = bib_item['title']
+            sentence = "select bib from BIB where 标题 = '{}'".format(bib_title)
+            query_result = table.query(sentence)
+            if len(query_result) == 1:
+                bibs[bib_key] = query_result[0]
+                count += 1
+    print("Online check coverage:{}".format(count / len(bibs)))
     return bibs
 
 
 def remove_duplicates(bibs, log_file):
     duplicates = dict()
-    for i in range(len(bibs)-1):
+    for i in range(len(bibs) - 1):
         cite_name = list(bibs.keys())[i]
         bib = bibs[cite_name]
 
@@ -161,7 +185,7 @@ def remove_duplicates(bibs, log_file):
             continue
 
         dup = {cite_name: []}
-        for j in range(i+1, len(bibs)):
+        for j in range(i + 1, len(bibs)):
             another_cite_name = list(bibs.keys())[j]
             another_bib = bibs[another_cite_name]
             if bib['title'] == another_bib['title']:
@@ -185,6 +209,7 @@ def remove_duplicates(bibs, log_file):
 
 
 def standardize_names(bibs):
+
     def preprocess_string(string, chars_in='(){},:', char_out=''):
         for char in chars_in:
             string = string.replace(char, char_out)
@@ -196,7 +221,8 @@ def standardize_names(bibs):
         dp = [[0] * (n + 1) for _ in range(m + 1)]
 
         for i, j in itertools.product(range(1, m + 1), range(1, n + 1)):
-            dp[i][j] = dp[i - 1][j - 1] + 1 if sequence1[i - 1] == sequence2[j - 1] else max(dp[i - 1][j], dp[i][j - 1])
+            dp[i][j] = dp[i - 1][j - 1] + 1 if sequence1[i - 1] == sequence2[
+                j - 1] else max(dp[i - 1][j], dp[i][j - 1])
 
         return dp[m][n]
 
@@ -211,13 +237,17 @@ def standardize_names(bibs):
         max_value, max_id = 0, -1
         for i, std_name in enumerate(STANDARD_NAMES):
             if key_to_modify in bib:
-                value = lcs(preprocess_string(bib[key_to_modify]), preprocess_string(std_name))
+                value = lcs(preprocess_string(bib[key_to_modify]),
+                            preprocess_string(std_name))
                 if value > max_value:
                     max_value = value
                     max_id = i
 
         # only replace with confidence
-        if max_value >= min(len(preprocess_string(bib[key_to_modify])) * REPLACE_THRESHOLD, len(preprocess_string(STANDARD_NAMES[max_id])) * REPLACE_THRESHOLD):
+        if max_value >= min(
+                len(preprocess_string(bib[key_to_modify])) * REPLACE_THRESHOLD,
+                len(preprocess_string(STANDARD_NAMES[max_id])) *
+                REPLACE_THRESHOLD):
             bib[key_to_modify] = STANDARD_NAMES[max_id]
 
     return bibs
@@ -235,9 +265,21 @@ def format_bibtex(in_file, out_file, log_file='logs.txt'):
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument('-i', '--input', type=str, help="input .bib filename", default='in.bib')
-    parser.add_argument('-o', '--output', type=str, help="output .bib filename", default='out.bib')
-    parser.add_argument('-l', '--log', type=str, help="output log filename", default='logs.txt')
+    parser.add_argument('-i',
+                        '--input',
+                        type=str,
+                        help="input .bib filename",
+                        default='in.bib')
+    parser.add_argument('-o',
+                        '--output',
+                        type=str,
+                        help="output .bib filename",
+                        default='out.bib')
+    parser.add_argument('-l',
+                        '--log',
+                        type=str,
+                        help="output log filename",
+                        default='logs.txt')
 
     args = parser.parse_args()
 

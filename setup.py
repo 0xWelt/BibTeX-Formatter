@@ -1,9 +1,11 @@
 import os
-
 from setuptools import setup
 
+def get_requirements():
+    return ["seatable_api"]
 
-def get_version() -> str:
+
+def get_version():
     # https://packaging.python.org/guides/single-sourcing-package-version/
     init = open(os.path.join("bfm", "__init__.py"), "r").read().split()
     return init[init.index("__version__") + 2][1:-1]
@@ -19,6 +21,7 @@ setup(
     setup_requires=['setuptools_scm'],
     use_scm_version=False,
     include_package_data=True,
+    install_requires = get_requirements(),
     packages=['bfm'],
     entry_points={
         'console_scripts': ['bfm=bfm:main'],
