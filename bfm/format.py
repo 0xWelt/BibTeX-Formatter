@@ -164,13 +164,13 @@ def online_check(bibs, log_file):
     for bib_key, bib_item in bibs.items():
         bib_type = bib_item['cite_type']
         if (bib_type in ["@article", "@inproceedings"]):
-            bib_title = bib_item['title']
-            sentence = "select bib from BIB where 标题 = '{}'".format(bib_title)
+            bib_title = bib_item['title'].replace("'", "\'").replace('"', '\"')
+            sentence = f"select bib from BIB where 标题 = '{bib_title}'"
             query_result = table.query(sentence)
             if len(query_result) == 1:
                 bibs[bib_key] = query_result[0]
                 count += 1
-    print("Online check coverage:{}".format(count / len(bibs)))
+    print(f"Online check coverage:{count / len(bibs)}")
     return bibs
 
 
@@ -265,21 +265,9 @@ def format_bibtex(in_file, out_file, log_file='logs.txt'):
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument('-i',
-                        '--input',
-                        type=str,
-                        help="input .bib filename",
-                        default='in.bib')
-    parser.add_argument('-o',
-                        '--output',
-                        type=str,
-                        help="output .bib filename",
-                        default='out.bib')
-    parser.add_argument('-l',
-                        '--log',
-                        type=str,
-                        help="output log filename",
-                        default='logs.txt')
+    parser.add_argument('input', type=str, help="input .bib filename", default='in.bib')
+    parser.add_argument('-o', '--output', type=str, help="output .bib filename", default='out.bib')
+    parser.add_argument('-l', '--log', type=str, help="output log filename", default='logs.txt')
 
     args = parser.parse_args()
 
