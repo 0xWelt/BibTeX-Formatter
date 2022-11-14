@@ -164,8 +164,15 @@ def online_check(bibs, log_file):
     for bib_key, bib_item in bibs.items():
         bib_type = bib_item['cite_type']
         if (bib_type in ["@article", "@inproceedings"]):
-            bib_title = bib_item['title'].replace("'", "\'").replace('"', '\"')
-            sentence = f"select bib from BIB where 标题 = '{bib_title}'"
+            bib_title = bib_item['title'].replace("'", "\'")
+            bib_title = bib_title.replace('"', '\"')
+            if ("'" in bib_title) and ('"' in bib_title):
+                sentence = "select bib from BIB where 标题 = '{}'".format(bib_title)
+                continue
+            if "'" in bib_title:
+                sentence = 'select bib from BIB where 标题 = "{}"'.format(bib_title)
+            else:
+                sentence = "select bib from BIB where 标题 = '{}'".format(bib_title)
             query_result = table.query(sentence)
             if len(query_result) == 1:
                 bibs[bib_key] = query_result[0]
@@ -255,10 +262,10 @@ def standardize_names(bibs):
 
 def format_bibtex(in_file, out_file, log_file='logs.txt'):
     bibs = read_bibtex(in_file)
-    bibs = remove_duplicates(bibs, log_file)
+    # bibs = remove_duplicates(bibs, log_file)
     bibs = online_check(bibs, log_file)
-    bibs = select_keys(bibs)
-    bibs = standardize_names(bibs)
+    # bibs = select_keys(bibs)
+    # bibs = standardize_names(bibs)
 
     write_bibtex(bibs, out_file)
 
