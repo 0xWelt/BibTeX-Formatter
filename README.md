@@ -8,13 +8,13 @@ Help generate citations that meet the requirements for conference and journal su
 Install from [PyPi](https://pypi.org/project/bibtex-formatter/):
 
 ```bash
-pip install bibtex-formatter
+pip install -U bibtex-formatter
 ```
 
 Alternatively, you can also install the latest version (not stable) from github:
 
 ```bash
-pip install git+https://github.com/Nickydusk/BibTeX-Formatter.git@main
+pip install -U git+https://github.com/Nickydusk/BibTeX-Formatter.git@main
 ```
 
 ## Usage
