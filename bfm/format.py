@@ -19,7 +19,7 @@ STANDARD_NAMES = [
     "Allerton Conference on Communication, Control, and Compution",
     "American Control Conference (ACC)",
     "Annual Conference of the International Speech Communication Association (INTERSPEECH)",
-    "Artificial Intelligence",
+    "Artificial Intelligence (AIJ)",
     "Communications of the ACM",
     "Conference on Empirical Methods in Natural Language Processing (EMNLP)",
     "Conference on Uncertainty in Artificial Intelligence (UAI)",
@@ -49,10 +49,12 @@ STANDARD_NAMES = [
     "International Conference on Tools and Algorithms for the Construction and Analysis of Systems (TACAS)",
     "International Joint Conference on Artificial Intelligence (IJCAI)",
     "Journal of Aerospace Computing, Information, and Communication",
-    "Journal of Artificial Intelligence Research",
-    "Journal of Machine Learning Research",
+    "Journal of Artificial Intelligence Research (JAIR)",
+    "Journal of Autonomous Agents and Multi-Agent Systems (JAAMAS)",
+    "Journal of Machine Learning Research (JMLR)",
     "Journal of Optimization Theory and Applications",
     "Learning and Intelligent Optimization (LION)",
+    "Machine Learning (MLJ) ",
     "Massachusetts Institute of Technology, Department of Aeronautics and Astronautics",
     "Massachusetts Institute of Technology, Department of Electrical Engineering and Computer Science",
     "Massachusetts Institute of Technology, Department of Mechanical Engineering",
@@ -259,19 +261,24 @@ class BibTexFormatter:
 
     def _standardize_names(self, bibs):
 
-        def preprocess_string(string, chars_in='(){},:', char_out=''):
+        def preprocess_string(string, chars_in='(){},:.', char_out=''):
             for char in chars_in:
                 string = string.replace(char, char_out)
             return string.lower().split()
 
-        def lcs(sequence1: list, sequence2: list) -> int:
+        def same_name(in_str, ref_str, mode='fuzzy'):
+            if mode == "fuzzy":
+                return ref_str.startswith(in_str)
+            elif mode == 'precise':
+                return in_str == ref_str
+
+        def lcs(input: list, reference: list) -> int:
             """ compute longest common subsequence """
-            m, n = len(sequence1), len(sequence2)
+            m, n = len(input), len(reference)
             dp = [[0] * (n + 1) for _ in range(m + 1)]
 
             for i, j in itertools.product(range(1, m + 1), range(1, n + 1)):
-                dp[i][j] = dp[i - 1][j - 1] + 1 if sequence1[i - 1] == sequence2[
-                    j - 1] else max(dp[i - 1][j], dp[i][j - 1])
+                dp[i][j] = dp[i - 1][j - 1] + 1 if same_name(input[i - 1], reference[j - 1]) else max(dp[i - 1][j], dp[i][j - 1])
 
             return dp[m][n]
 
@@ -287,20 +294,18 @@ class BibTexFormatter:
                 print(f"Error: {cite_name}   Required key {key_to_modify} not found")
                 continue
 
-            max_value, max_id = 0, -1
+            abs_values = []
+            relative_values = []
             for i, std_name in enumerate(STANDARD_NAMES):
                 if key_to_modify in bib:
-                    value = lcs(preprocess_string(bib[key_to_modify]),
-                                preprocess_string(std_name))
-                    if value > max_value:
-                        max_value = value
-                        max_id = i
-
+                    abs_values.append(lcs(preprocess_string(bib[key_to_modify]), preprocess_string(
+                        std_name)))
+                    relative_values.append(abs_values[i] / len(preprocess_string(std_name)))
+            max_id = relative_values.index(max(relative_values))
+            
             # only replace with confidence
-            if max_value >= min(
-                    len(preprocess_string(bib[key_to_modify])) * REPLACE_THRESHOLD,
-                    len(preprocess_string(STANDARD_NAMES[max_id])) *
-                    REPLACE_THRESHOLD):
+            if relative_values[max_id] >= REPLACE_THRESHOLD and \
+                    abs_values[max_id] >= len(preprocess_string(STANDARD_NAMES[max_id])) * REPLACE_THRESHOLD:
                 bib[key_to_modify] = STANDARD_NAMES[max_id]
 
         return bibs
@@ -310,7 +315,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('input', type=str, help="input .bib filename", default='in.bib')
     parser.add_argument('-no', '--no_online', help="forbid doing online check", action='store_true')
-    
+
     parser.add_argument('-o', '--output', type=str, help="output .bib filename", default='out.bib')
     parser.add_argument('-l', '--log', type=str, help="output log filename", default='logs.txt')
 
