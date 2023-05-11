@@ -14,7 +14,6 @@ STANDARD_NAMES = [
     "Advances in Neural Information Processing Systems (NeurIPS)",
     "AIAA Aviation Technology, Integration, and Operations Conference (ATIO)",
     "AIAA Guidance, Navigation, and Control Conference (GNC)",
-    "AIAA Infotech@Aerospace Conference",
     "AIAA Journal on Guidance, Control, and Dynamics",
     "Allerton Conference on Communication, Control, and Compution",
     "American Control Conference (ACC)",
@@ -77,7 +76,8 @@ class BibTexFormatter:
         bibs = self._read_bibtex_from_file(self.args.input)
         bibs = self._remove_duplicates(bibs)
 
-        if not self.args.no_online:
+        if self.args.use_database:
+            print("Scanning database...")
             bibs = self._online_check(bibs)
 
         bibs = self._select_keys(bibs)
@@ -189,6 +189,10 @@ class BibTexFormatter:
     # ========== Formatters ==========
     def _select_keys(self, bibs: list):
         for bib in bibs.values():
+            # @misc will be ignored
+            if bib["cite_type"] == "@misc":
+                continue
+            
             for key in list(bib.keys()):
                 if key not in ["cite_type"] + SELECTED_KEYS[bib["cite_type"]]:
                     del bib[key]
@@ -314,7 +318,7 @@ class BibTexFormatter:
 def main():
     parser = ArgumentParser()
     parser.add_argument('input', type=str, help="input .bib filename", default='in.bib')
-    parser.add_argument('-no', '--no_online', help="forbid doing online check", action='store_true')
+    parser.add_argument('-d', '--use_database', help="doing online check with database", action='store_true')
 
     parser.add_argument('-o', '--output', type=str, help="output .bib filename", default='out.bib')
     parser.add_argument('-l', '--log', type=str, help="output log filename", default='logs.txt')
