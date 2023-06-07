@@ -3,8 +3,7 @@ from argparse import ArgumentParser
 from seatable_api import Base
 
 SELECTED_KEYS = {
-    "@article":
-    ["author", "title", "journal", "volume", "number", "pages", "year"],
+    "@article": ["author", "title", "journal", "volume", "number", "pages", "year"],
     "@book": ["author", "title", "publisher", "year"],
     "@inproceedings": ["author", "title", "booktitle", "pages", "year"],
 }
@@ -192,7 +191,7 @@ class BibTexFormatter:
             # @misc will be ignored
             if bib["cite_type"] == "@misc":
                 continue
-            
+
             for key in list(bib.keys()):
                 if key not in ["cite_type"] + SELECTED_KEYS[bib["cite_type"]]:
                     del bib[key]
@@ -306,7 +305,7 @@ class BibTexFormatter:
                         std_name)))
                     relative_values.append(abs_values[i] / len(preprocess_string(std_name)))
             max_id = relative_values.index(max(relative_values))
-            
+
             # only replace with confidence
             if relative_values[max_id] >= REPLACE_THRESHOLD and \
                     abs_values[max_id] >= len(preprocess_string(STANDARD_NAMES[max_id])) * REPLACE_THRESHOLD:
