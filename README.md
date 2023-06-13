@@ -5,6 +5,7 @@
 Help generate citations that meet the requirements for conference and journal submissions.
 
 ## Quick Installation
+
 Install from [PyPi](https://pypi.org/project/bibtex-formatter/):
 
 ```bash
@@ -24,18 +25,25 @@ bfm IN_FILE
 ```
 
 Positional args:
+
 - `IN_FILE`: Choose the input .bib file, default to `in.bib`
 
 Options (Please see `bfm --help` for more details):
-- `-d`, `--use_database`: Do online check with NJU database, default to False
+
 - `-o OUTPUT`,`--output OUTPUT`: Choose the output .bib file, default to `out.bib`
 - `-l LOG`,`--log LOG`: Choose the output log file, default to `logs.txt`
+- `-d`, `--use_database`: Do online check with NJU database, default to False (The feature may override correct entries, use with caution!)
 
 ## Features
+
 - [x] Remove duplicate citations (keep the first occurrence), log what is removed
-- [x] Online check contents, make sure they are up to date 
 - [x] Simplify keys according to citation type (e.g., `@inproceedings -> [author, title, booktitle, pages, year]`)
-- [x] Standardize conference / journal names (e.g., `Advances in Neural Information Processing Systems (NeurIPS)`)
+- [x] Standardize conference / journal names (e.g., `Advances in Neural Information Processing Systems`)
+- [x] Standardize "pages" to `pages = {start-end}`, alert if more or less timestamps.
+- [x] Standardize arXiv citations to **google scholar style**
+  - [x] arXiv export bibtex -> google scholar style
+  - [x] dblp bibtex -> google scholar style
+- [ ] Online check contents, make sure they are up to date
 
 ## Welcome to PR
 
