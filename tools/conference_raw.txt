@@ -1,0 +1,38 @@
+ACM/IEEE Supercomputing Conference
+ARITH Symposium on Computer Arithmetic
+Asia and South Pacific Design Automation Conference
+Conference on Computer Vision and Pattern Recognition
+Custom Integrated Circuits Conference
+Design Automation and Test in Europe
+Design Automation Conference
+Global Communications Conference
+Hot Chips
+Hot Interconnects
+IEEE MTT-S International Microwave Symposium
+IEEE Southwest Symposium on Image Analysis and Interpretation
+IEEE Visualization
+International Carnahan Conference on Security Technology
+International Conference on Acoustics, Speech, and Signal Processing
+International Conference on Communications
+International Conference on Computer Vision
+International Conference on Computer-Aided Design
+International Conference on Software Engineering and Formal Methods
+International Conference on Web Services
+International Electron Devices Meeting
+International Forum on Strategic Technology
+International Frequency Control Symposium
+International Solid-State Circuits Conference
+International Symposium on Circuits and Systems
+International Symposium on Information Theory
+International Symposium on Mixed and Augmented Reality
+International Symposium on Personal, Indoor and Mobile Radio Communications
+International Symposium on Physical Design
+International Symposium on Power Semiconductor Devices and ICs (ISPSD)
+Iran Workshop on Communication and Information Theory
+Latin American Test Symposium (LATS)
+Photovoltaic Specialists Conference
+RadarCon
+Symposia on VLSI Technology and Circuits
+Symposium on Foundations of Computer Science
+Symposium on Logic in Computer Science
+Vehicular Technology Conference

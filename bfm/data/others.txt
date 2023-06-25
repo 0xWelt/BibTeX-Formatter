@@ -1,0 +1,48 @@
+AAAI Conference on Artificial Intelligence
+ACM Special Interest Group on Data Communication
+Advances in Neural Information Processing Systems
+AIAA Aviation Technology, Integration, and Operations Conference
+AIAA Guidance, Navigation, and Control Conference
+AIAA Journal on Guidance, Control, and Dynamics
+Allerton Conference on Communication, Control, and Compution
+American Control Conference
+Annual Conference of the International Speech Communication Association
+Artificial Intelligence
+Communications of the ACM
+Computer
+Conference on Empirical Methods in Natural Language Processing
+Conference on Robot Learning
+Conference on Uncertainty in Artificial Intelligence
+Digital Avionics Systems Conference
+European Conference on Computer Vision
+European Conference on Machine Learning
+International Conference on Agents and Artificial Intelligence
+International Conference on Automated Planning and Scheduling
+International Conference on Autonomous Agents and Multiagent Systems
+International Conference on Learning Representations
+International Conference on Machine Learning
+International Conference on Machine Learning and Applications
+International Conference on Spoken Language Processing
+International Conference on Tools and Algorithms for the Construction and Analysis of Systems
+International Joint Conference on Artificial Intelligence
+Journal of Aerospace Computing, Information, and Communication
+Journal of Artificial Intelligence Research
+Journal of Autonomous Agents and Multi-Agent Systems
+Journal of Economic Theory
+Journal of Intelligent Information Systems
+Journal of Machine Learning Research
+Journal of Optimization Theory and Applications
+Learning and Intelligent Optimization
+Machine Learning
+Massachusetts Institute of Technology
+Massachusetts Institute of Technology, Department of Aeronautics and Astronautics
+Massachusetts Institute of Technology, Department of Electrical Engineering and Computer Science
+Massachusetts Institute of Technology, Department of Mechanical Engineering
+Mathematics of Operations Research
+Nature
+Neural Computing and Applications
+Operations Research
+Robotics: Science and Systems
+Stanford University, Department of Aeronautics and Astronautics
+Stanford University, Department of Electrical Engineering
+Stanford University, Department of Mechanical Engineering

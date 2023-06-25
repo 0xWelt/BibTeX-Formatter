@@ -1,0 +1,139 @@
+IEEE Access
+Advanced Packaging, IEEE Transactions on
+Aerospace and Electronic Systems, IEEE Transactions on
+Affective Computing, IEEE Transactions on
+Antennas and Propagation, IEEE Transactions on
+Antennas and Wireless Propagation Letters, IEEE
+Applied Superconductivity, IEEE Transactions on
+Artificial Intelligence, IEEE Transactions on
+Audio and Electroacoustic, IEEE Transactions on
+Audio, Speech, and Language Processing, IEEE Transactions on
+Automatic Control, IEEE Transactions on
+Automatica Sinica, IEEE/CAA Journal of
+Automation Science and Engineering, IEEE Transactions on
+Autonomous Mental Development, IEEE Transactions on
+Big Data, IEEE Transactions on
+Biomedical and Health Informatics, IEEE Journal of
+Biomedical Circuits and Systems, IEEE Transactions on
+Biomedical Engineering, IEEE Reviews in
+Biomedical Engineering, IEEE Transactions on
+Biometrics Compendium, IEEE
+Biometrics, Behavior, and Identity Science, IEEE Transactions on
+Broadcasting, IEEE Transactions on
+Cable Television, IEEE Transactions on
+Circuits and Systems for Video Technology, IEEE Transactions on
+Circuits and Systems I: Regular Papers, IEEE Transactions on
+Circuits and Systems II: Express Briefs, IEEE Transactions on
+Circuits and Systems, IEEE Open Journal of
+Circuit Theory, IEEE Transactions on (originally named Circuit Theory, IRE Transactions on)
+Cloud Computing, IEEE Transactions on
+Cognitive and Developmental Systems, IEEE Transactions on
+Cognitive Communications and Networking, IEEE Transactions on
+Communications Letters, IEEE
+Communications, IEEE Journal on Selected Areas in
+Communications, IEEE Transactions on
+Components and Packaging Technologies, IEEE Transactions on
+Computational Biology and Bioinformatics, IEEE/ACM Transactions on
+Computational Intelligence and AI in Games, IEEE Transactions on
+Computational Social Systems, IEEE Transactions on
+Computer Architecture Letters, IEEE
+Computer-Aided Design of Integrated Circuits and Systems, IEEE Transactions on
+Computers, IEEE Transactions on
+Consumer Electronics, IEEE Transactions on
+Control Systems Technology, IEEE Transactions on
+Dependable and Secure Computing, IEEE Transactions on
+Device and Materials Reliability, IEEE Transactions on
+Dielectrics and Electrical Insulation, IEEE Transactions on
+Display Technology, Journal of
+Earth Observations and Remote Sensing, IEEE Journal of Selected Topics in Applied
+Education, IEEE Transactions on
+Electrical and Computer Engineering, Canadian Journal of
+Electromagnetic Compatibility, IEEE Transactions on
+Electron Device Letters, IEEE
+Electron Devices, IEEE Transactions on
+Electronic Materials, IEEE/TMS Journal of
+Electronics Packaging Manufacturing, IEEE Transactions on
+Embedded Systems Letters, IEEE
+Emerging and Selected Topics in Circuits and Systems, IEEE Journal of
+Emerging Topics on Computing, IEEE Transactions on
+Energy Conversion, IEEE Transactions on
+Engineering Management, IEEE Transactions on
+Evolutionary Computation, IEEE Transactions on
+Fuzzy Systems, IEEE Transactions on
+Games, IEEE Transactions on
+Geoscience and Remote Sensing Letters, IEEE
+Geoscience and Remote Sensing, IEEE Transactions on
+Haptics, IEEE Transactions on
+Image Processing, IEEE Transactions on
+Industrial Electronics, IEEE Transactions on
+Industrial Informatics, IEEE Transactions on
+Industry Applications, IEEE Transactions on
+Information Forensics and Security, IEEE Transactions on
+Information Technology in Biomedicine, IEEE Transactions on
+Information Theory, IEEE Transactions on
+Instrumentation and Measurement, IEEE Transactions on
+Intelligent Transportation Systems, IEEE Transactions on
+Knowledge and Data Engineering, IEEE Transactions on
+Latin America Transactions, IEEE
+Learning Technologies, IEEE Transactions on
+Lightwave Technology, Journal of
+Magnetics, IEEE Transactions on
+Magnetics Letters, IEEE
+Manufacturing Technology, IEEE Transactions on
+Mechatronics, IEEE/ASME Transactions on
+Medical Imaging, IEEE Transactions on
+Microelectromechanical Systems, Journal of
+Microwave and Wireless Components Letters, IEEE
+Microwave Theory and Techniques, IEEE Transactions on
+Mobile Computing, IEEE Transactions on
+Multimedia, IEEE Transactions on
+Nanobioscience, IEEE Transactions on
+Nanotechnology, IEEE Transactions on
+Network and Service Management, IEEE Transactions on
+Network Science and Engineering, IEEE Transactions on
+Networking, IEEE/ACM Transactions on
+Neural Networks and Learning Systems, IEEE Transactions on
+Neural Systems and Rehabilitation Engineering, IEEE Transactions on
+Nuclear Science, IEEE Transactions on
+Oceanic Engineering, IEEE Journal of
+Optical Communications and Networking, IEEE/OSA Journal of
+Parallel and Distributed Systems, IEEE Transactions on
+Pattern Analysis and Machine Intelligence, IEEE Transactions on
+Photonics Journal, IEEE
+Photonics Technology Letters, IEEE
+Photovoltaics, IEEE Journal of
+Plasma Science, IEEE Transactions on
+Power Delivery, IEEE Transactions on
+Power Electronics Letters, IEEE
+Power Electronics, IEEE Transactions on
+Power Systems, IEEE Transactions on
+Proceedings of the IEEE
+Professional Communication, IEEE Transactions on
+Project Safety Engineering, IEEE Journal on
+Quantum Electronics, IEEE Journal of
+Quantum Electronics, IEEE Journal of Selected Topics in
+Quantum Engineering, IEEE Transactions on
+Reliability, IEEE Transactions on
+Robotics, IEEE Transactions on
+Semiconductor Manufacturing, IEEE Transactions on
+Sensors Journal, IEEE
+Services Computing, IEEE Transactions on
+Signal Processing Letters, IEEE
+Signal Processing, IEEE Journal of Selected Topics in
+Signal Processing, IEEE Transactions on
+Smart Grid, IEEE Transactions on
+Software Engineering, IEEE Transactions on
+Solid-State Circuits, IEEE Journal of
+Sustainable Energy, IEEE Transactions on
+Systems Journal, IEEE
+Systems, Man and Cybernetics, IEEE Transactions on
+Systems, Man and Cybernetics, Part A, IEEE Transactions on
+Systems, Man and Cybernetics, Part B, IEEE Transactions on
+Systems, Man and Cybernetics, Part C, IEEE Transactions on
+Terahertz Science and Technology, IEEE Transactions on
+Ultrasonics, Ferroelectrics and Frequency Control, IEEE Transactions on
+Vehicular Technology, IEEE Transactions on
+Very Large Scale Integration (VLSI) Systems, IEEE Transactions on
+Visualization and Computer Graphics, IEEE Transactions on
+Wireless Communications Letters, IEEE
+Wireless Communications, IEEE Transactions on

@@ -4,6 +4,10 @@
 
 Help generate citations that meet the requirements for conference and journal submissions.
 
+## Call for Contributions
+
+Completing standardized names can make matching more precise. We would greatly appreciate it if you can fill more standard conference / journal names or correct wrong names in `bfm/data/others.txt`. Please use pull requests to submit your changes.
+
 ## Quick Installation
 
 Install from [PyPi](https://pypi.org/project/bibtex-formatter/):
@@ -26,13 +30,13 @@ bfm IN_FILE
 
 Positional args:
 
-- `IN_FILE`: Choose the input .bib file, default to `in.bib`
+- `IN_FILE`: Choose the input .bib file
 
 Options (Please see `bfm --help` for more details):
 
 - `-o OUTPUT`,`--output OUTPUT`: Choose the output .bib file, default to `out.bib`
 - `-l LOG`,`--log LOG`: Choose the output log file, default to `logs.txt`
-- `-d`, `--use_database`: Do online check with NJU database, default to False (The feature may override correct entries, use with caution!)
+<!-- - `-d`, `--use_database`: Do online check with NJU database, default to False (The feature may override correct entries, use with caution!) -->
 
 ## Features
 
@@ -44,7 +48,3 @@ Options (Please see `bfm --help` for more details):
   - [x] arXiv export bibtex -> google scholar style
   - [x] dblp bibtex -> google scholar style
 - [ ] Online check contents, make sure they are up to date
-
-## Welcome to PR
-
-You can make contribution to the project by filling more standard conference / journal names in `refactor/STANDARD_NAMES`. Please use pull requests to submit your changes.

@@ -1,0 +1,137 @@
+# From: https://en.wikipedia.org/wiki/List_of_IEEE_publications
+IEEE Access
+IEEE Transactions on Advanced Packaging
+IEEE Transactions on Aerospace and Electronic Systems
+IEEE Transactions on Affective Computing
+IEEE Transactions on Antennas and Propagation
+IEEE Antennas and Wireless Propagation Letters
+IEEE Transactions on Applied Superconductivity
+IEEE Transactions on Artificial Intelligence
+IEEE Transactions on Audio and Electroacoustic
+IEEE Transactions on Audio, Speech, and Language Processing
+IEEE Transactions on Automatic Control
+IEEE/CAA Journal of Automatica Sinica
+IEEE Transactions on Automation Science and Engineering
+IEEE Transactions on Autonomous Mental Development
+IEEE Transactions on Big Data
+IEEE Journal of Biomedical and Health Informatics
+IEEE Transactions on Biomedical Circuits and Systems
+IEEE Reviews in Biomedical Engineering
+IEEE Transactions on Biomedical Engineering
+IEEE Biometrics Compendium
+IEEE Transactions on Biometrics, Behavior, and Identity Science
+IEEE Transactions on Broadcasting
+IEEE Transactions on Cable Television
+IEEE Transactions on Circuits and Systems for Video Technology
+IEEE Transactions on Circuits and Systems I: Regular Papers
+IEEE Transactions on Circuits and Systems II: Express Briefs
+IEEE Open Journal of Circuits and Systems
+IEEE Transactions on Circuit Theory
+IEEE Transactions on Cloud Computing
+IEEE Transactions on Cognitive and Developmental Systems
+IEEE Transactions on Cognitive Communications and Networking
+IEEE Communications Letters
+IEEE Journal on Selected Areas in Communications
+IEEE Transactions on Communications
+IEEE Transactions on Components and Packaging Technologies
+IEEE/ACM Transactions on Computational Biology and Bioinformatics
+IEEE Transactions on Computational Intelligence and AI in Games
+IEEE Transactions on Computational Social Systems
+IEEE Computer Architecture Letters
+IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems
+IEEE Transactions on Computers
+IEEE Transactions on Consumer Electronics
+IEEE Transactions on Control Systems Technology
+IEEE Transactions on Dependable and Secure Computing
+IEEE Transactions on Device and Materials Reliability
+IEEE Transactions on Dielectrics and Electrical Insulation
+Journal of Display Technology
+IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing
+IEEE Transactions on Education
+Canadian Journal of Electrical and Computer Engineering
+IEEE Transactions on Electromagnetic Compatibility
+IEEE Electron Device Letters
+IEEE Transactions on Electron Devices
+IEEE/TMS Journal of Electronic Materials
+IEEE Transactions on Electronics Packaging Manufacturing
+IEEE Embedded Systems Letters
+IEEE Journal of Emerging and Selected Topics in Circuits and Systems
+IEEE Transactions on Emerging Topics on Computing
+IEEE Transactions on Energy Conversion
+IEEE Transactions on Engineering Management
+IEEE Transactions on Evolutionary Computation
+IEEE Transactions on Fuzzy Systems
+IEEE Transactions on Games
+IEEE Geoscience and Remote Sensing Letters
+IEEE Transactions on Geoscience and Remote Sensing
+IEEE Transactions on Haptics
+IEEE Transactions on Image Processing
+IEEE Transactions on Industrial Electronics
+IEEE Transactions on Industrial Informatics
+IEEE Transactions on Industry Applications
+IEEE Transactions on Information Forensics and Security
+IEEE Transactions on Information Technology in Biomedicine
+IEEE Transactions on Information Theory
+IEEE Transactions on Instrumentation and Measurement
+IEEE Transactions on Intelligent Transportation Systems
+IEEE Transactions on Knowledge and Data Engineering
+IEEE Latin America Transactions
+IEEE Transactions on Learning Technologies
+Journal of Lightwave Technology
+IEEE Transactions on Magnetics
+IEEE Magnetics Letters
+IEEE Transactions on Manufacturing Technology
+IEEE/ASME Transactions on Mechatronics
+IEEE Transactions on Medical Imaging
+Journal of Microelectromechanical Systems
+IEEE Microwave and Wireless Components Letters
+IEEE Transactions on Microwave Theory and Techniques
+IEEE Transactions on Mobile Computing
+IEEE Transactions on Multimedia
+IEEE Transactions on Nanobioscience
+IEEE Transactions on Nanotechnology
+IEEE Transactions on Network and Service Management
+IEEE Transactions on Network Science and Engineering
+IEEE/ACM Transactions on Networking
+IEEE Transactions on Neural Networks and Learning Systems
+IEEE Transactions on Neural Systems and Rehabilitation Engineering
+IEEE Transactions on Nuclear Science
+IEEE Journal of Oceanic Engineering
+IEEE/OSA Journal of Optical Communications and Networking
+IEEE Transactions on Parallel and Distributed Systems
+IEEE Transactions on Pattern Analysis and Machine Intelligence
+IEEE Photonics Journal
+IEEE Photonics Technology Letters
+IEEE Journal of Photovoltaics
+IEEE Transactions on Plasma Science
+IEEE Transactions on Power Delivery
+IEEE Power Electronics Letters
+IEEE Transactions on Power Electronics
+IEEE Transactions on Power Systems
+Proceedings of the IEEE
+IEEE Transactions on Professional Communication
+IEEE Journal on Project Safety Engineering
+IEEE Journal of Quantum Electronics
+IEEE Journal of Selected Topics in Quantum Electronics
+IEEE Transactions on Quantum Engineering
+IEEE Transactions on Reliability
+IEEE Transactions on Robotics
+IEEE Transactions on Semiconductor Manufacturing
+IEEE Sensors Journal
+IEEE Transactions on Services Computing
+IEEE Signal Processing Letters
+IEEE Journal of Selected Topics in Signal Processing
+IEEE Transactions on Signal Processing
+IEEE Transactions on Smart Grid
+IEEE Transactions on Software Engineering
+IEEE Journal of Solid-State Circuits
+IEEE Transactions on Sustainable Energy
+IEEE Systems Journal
+IEEE Transactions on Systems, Man and Cybernetics
+IEEE Transactions on Terahertz Science and Technology
+IEEE Transactions on Ultrasonics, Ferroelectrics and Frequency Control
+IEEE Transactions on Vehicular Technology
+IEEE Transactions on Very Large Scale Integration  Systems
+IEEE Transactions on Visualization and Computer Graphics
+IEEE Wireless Communications Letters
+IEEE Transactions on Wireless Communications
