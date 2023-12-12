@@ -13,7 +13,9 @@ SELECTED_KEYS = {
 # keep this alphabetically
 STANDARD_NAMES = []
 REPLACE_THRESHOLD_RAW = 0.2  # only replace names with "similarity of raw" >= threshold
-REPLACE_THRESHOLD_STD = 0.7  # only replace names with "similarity of standard" >= threshold
+REPLACE_THRESHOLD_STD = (
+    0.7  # only replace names with "similarity of standard" >= threshold
+)
 
 
 class BibEntry:
@@ -45,7 +47,7 @@ class BibTexFormatter:
         bibs = self._read_bibtex_from_file(self.args.input)
 
         # process bibtex entries
-        with open(self.args.log, 'w') as f:
+        with open(self.args.log, "w", encoding="utf-8") as f:
             pass
         bibs = self._remove_duplicates(bibs)
         # if self.args.use_database:
@@ -57,7 +59,7 @@ class BibTexFormatter:
 
         # write .bib file
         self._write_bibtex(bibs, self.args.output)
-        with open(self.args.log, 'r') as f:
+        with open(self.args.log, "r", encoding="utf-8") as f:
             print(f.read())
 
     # ====================== Utils ======================
@@ -115,7 +117,7 @@ class BibTexFormatter:
     #     return entry
 
     def _read_bibtex_from_file(self, in_file: str):
-        with open(in_file, 'r') as f:
+        with open(in_file, "r", encoding="utf-8") as f:
             lines = f.readlines()
 
         # add all bibtex entries to a dict with key=cite_name
@@ -140,7 +142,10 @@ class BibTexFormatter:
             if line.startswith("@"):
                 assert previous_line == ""
                 cite_type, cite_name = line.split("{")
-                bib = BibEntry(cite_type.replace(',', '').strip(), cite_name.replace(',', '').strip())
+                bib = BibEntry(
+                    cite_type.replace(",", "").strip(),
+                    cite_name.replace(",", "").strip(),
+                )
                 bibs.append(bib)
                 continue
             else:
@@ -152,12 +157,14 @@ class BibTexFormatter:
                 else:
                     previous_line = ""
                     key, value = line.split("=", 1)
-                    bib.fields[key.strip()] = self._remove_up_to(value.strip(), "{},", 1)
+                    bib.fields[key.strip()] = self._remove_up_to(
+                        value.strip(), "{},", 1
+                    )
 
         return bibs
 
     def _write_bibtex(self, bibs, out_file: str):
-        with open(out_file, 'w') as f:
+        with open(out_file, "w", encoding="utf-8") as f:
             for bib in bibs:
                 f.write(bib.make_string())
 
@@ -166,10 +173,17 @@ class BibTexFormatter:
         duplicates = {}
         for i, bib in enumerate(bibs[:-1]):
             # skip entries with no title (comment) || already in duplicates
-            if "title" not in bib.fields or any(bib.name in duplicates[dup] for dup in duplicates):
+            if "title" not in bib.fields or any(
+                bib.name in duplicates[dup] for dup in duplicates
+            ):
                 continue
 
-            dup = [bib2 for bib2 in bibs[i + 1:] if "title" in bib2.fields and bib.fields['title'] == bib2.fields['title']]
+            dup = [
+                bib2
+                for bib2 in bibs[i + 1 :]
+                if "title" in bib2.fields
+                and bib.fields["title"] == bib2.fields["title"]
+            ]
             if dup:
                 duplicates[bib] = dup
 
@@ -182,7 +196,7 @@ class BibTexFormatter:
 
         # log the event
         if duplicates:
-            with open(self.args.log, 'w') as f:
+            with open(self.args.log, "w", encoding="utf-8") as f:
                 f.write("=============== Found Duplicate ===============\n")
                 for dup, value in duplicates.items():
                     f.write(f"{dup} <- {value}\n")
@@ -230,6 +244,9 @@ class BibTexFormatter:
     def _format_arXiv(self, bibs):
         for bib in bibs:
             if bib.type == "@article":
+                if "journal" not in bib.fields:
+                    print(f"Fatal Error: {bib} missing key 'journal'")
+                    quit()
                 # 1. google style, keep the same
                 if "arXiv" in bib.fields["journal"]:
                     continue
@@ -240,39 +257,41 @@ class BibTexFormatter:
             # 3. arXiv API export style, convert to google style
             if bib.type == "@misc":
                 bib.type = "@article"
-                bib.fields['journal'] = f"arXiv preprint arXiv:{bib.fields['eprint']}"
+                bib.fields["journal"] = f"arXiv preprint arXiv:{bib.fields['eprint']}"
 
         return bibs
 
     def _standardize_names(self, bibs):
-
-        def preprocess_string(string, chars_in='(){},:.', char_out=''):
+        def preprocess_string(string, chars_in="(){},:.", char_out=""):
             for char in chars_in:
                 string = string.replace(char, char_out)
             return string.lower().split()
 
-        def same_name(in_str, ref_str, mode='fuzzy'):
+        def same_name(in_str, ref_str, mode="fuzzy"):
             if mode == "fuzzy":
                 return ref_str.startswith(in_str)
-            elif mode == 'precise':
+            elif mode == "precise":
                 return in_str == ref_str
 
         def lcs(input: list, reference: list) -> int:
-            """ compute longest common subsequence """
+            """compute longest common subsequence"""
             m, n = len(input), len(reference)
             dp = [[0] * (n + 1) for _ in range(m + 1)]
 
             for i, j in itertools.product(range(1, m + 1), range(1, n + 1)):
-                dp[i][j] = dp[i - 1][j - 1] + 1 if same_name(
-                    input[i - 1], reference[j - 1]) else max(dp[i - 1][j], dp[i][j - 1])
+                dp[i][j] = (
+                    dp[i - 1][j - 1] + 1
+                    if same_name(input[i - 1], reference[j - 1])
+                    else max(dp[i - 1][j], dp[i][j - 1])
+                )
 
             return dp[m][n]
 
         for bib in bibs:
-            if bib.type == '@inproceedings':
-                key_to_modify = 'booktitle'
-            elif bib.type == '@article':
-                key_to_modify = 'journal'
+            if bib.type == "@inproceedings":
+                key_to_modify = "booktitle"
+            elif bib.type == "@article":
+                key_to_modify = "journal"
                 if "arXiv" in bib.fields["journal"]:
                     continue
             else:
@@ -283,8 +302,13 @@ class BibTexFormatter:
 
             records = []  # (index, abs_value, rel_raw, rel_std)
             for i, std_name in enumerate(STANDARD_NAMES):
-                abs_value = lcs(preprocess_string(bib.fields[key_to_modify]), preprocess_string(std_name))
-                relative_values_raw = abs_value / len(preprocess_string(bib.fields[key_to_modify]))
+                abs_value = lcs(
+                    preprocess_string(bib.fields[key_to_modify]),
+                    preprocess_string(std_name),
+                )
+                relative_values_raw = abs_value / len(
+                    preprocess_string(bib.fields[key_to_modify])
+                )
                 relative_values_std = abs_value / len(preprocess_string(std_name))
                 records.append((i, abs_value, relative_values_raw, relative_values_std))
             records.sort(key=lambda x: (x[2], x[3]), reverse=True)
@@ -307,7 +331,7 @@ class BibTexFormatter:
                     wrong_pages[bib.name] = bib.fields["pages"]
 
         if wrong_pages:
-            with open(self.args.log, 'a') as f:
+            with open(self.args.log, "a", encoding="utf-8") as f:
                 f.write(f"=============== Found Wrong Pages ===============\n")
                 for name, pages in wrong_pages.items():
                     f.write(f"{name}: {pages}\n")
@@ -326,7 +350,11 @@ class BibTexFormatter:
 
             needed_keys = SELECTED_KEYS[bib.type].copy()
             # ICLR has no pages
-            if bib.type == "@inproceedings" and bib.fields["booktitle"] == "International Conference on Learning Representations":
+            if (
+                bib.type == "@inproceedings"
+                and bib.fields["booktitle"]
+                == "International Conference on Learning Representations"
+            ):
                 needed_keys.remove("pages")
             # Google stgle arXiv only have these keys
             if bib.type == "@article" and "arXiv" in bib.fields["journal"]:
@@ -347,7 +375,7 @@ class BibTexFormatter:
                     missing_keys_count[key] = missing_keys_count.get(key, 0) + 1
 
         if missing_keys:
-            with open(self.args.log, 'a') as f:
+            with open(self.args.log, "a", encoding="utf-8") as f:
                 f.write(f"=============== Found Missing ===============\n")
                 f.write(f"{missing_keys_count}\n")
                 for name, miss in missing_keys.items():
@@ -359,25 +387,32 @@ class BibTexFormatter:
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument('input', type=str,
-                        help="input .bib filename", default='in.bib')
-    parser.add_argument('-d', '--use_database',
-                        help="doing online check with database", action='store_true')
+    parser.add_argument("input", type=str, help="input .bib filename", default="in.bib")
+    parser.add_argument(
+        "-d",
+        "--use_database",
+        help="doing online check with database",
+        action="store_true",
+    )
 
-    parser.add_argument('-o', '--output', type=str,
-                        help="output .bib filename", default='out.bib')
-    parser.add_argument('-l', '--log', type=str,
-                        help="output log filename", default='logs.txt')
+    parser.add_argument(
+        "-o", "--output", type=str, help="output .bib filename", default="out.bib"
+    )
+    parser.add_argument(
+        "-l", "--log", type=str, help="output log filename", default="logs.txt"
+    )
     args = parser.parse_args()
 
     # make STANDARD_NAMES
     root = os.path.dirname(os.path.abspath(__file__))
-    for file_name in os.listdir(os.path.join(root,"data")):
+    for file_name in os.listdir(os.path.join(root, "data")):
         if file_name.endswith(".txt"):
-            with open(os.path.join(root, "data", file_name), "r") as f:
+            with open(
+                os.path.join(root, "data", file_name), "r", encoding="utf-8"
+            ) as f:
                 for line in f:
                     if not line.startswith("#"):
                         STANDARD_NAMES.append(line.strip())
 
-    formatter=BibTexFormatter(args)
+    formatter = BibTexFormatter(args)
     formatter.format_bibtex()

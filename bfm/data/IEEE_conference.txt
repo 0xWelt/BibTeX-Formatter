@@ -28,9 +28,9 @@ International Symposium on Information Theory
 International Symposium on Mixed and Augmented Reality
 International Symposium on Personal, Indoor and Mobile Radio Communications
 International Symposium on Physical Design
-International Symposium on Power Semiconductor Devices and ICs 
+International Symposium on Power Semiconductor Devices and ICs
 Iran Workshop on Communication and Information Theory
-Latin American Test Symposium 
+Latin American Test Symposium
 Photovoltaic Specialists Conference
 RadarCon
 Symposia on VLSI Technology and Circuits
