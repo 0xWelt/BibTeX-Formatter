@@ -143,7 +143,7 @@ class BibTexFormatter:
                 assert previous_line == ""
                 cite_type, cite_name = line.split("{")
                 bib = BibEntry(
-                    cite_type.replace(",", "").strip(),
+                    cite_type.replace(",", "").strip().lower(),
                     cite_name.replace(",", "").strip(),
                 )
                 bibs.append(bib)
